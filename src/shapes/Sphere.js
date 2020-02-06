@@ -30,11 +30,12 @@ export default class Sphere {
     this.velocity = [ 0, 0, 0 ]
   }
 
-  setVelocity(time) {
+  setVelocity(delta) {
 
-    let delta = time - this.startTime
+    // let delta = time - this.startTime
 
-    this.velocity = this.velocity.map((v,i) => v + this.noiseFunction(this.seed[i] + delta * this.velocityScale))
+    this.velocity = this.velocity.map((v,i) => this.noiseFunction(this.seed[i] + delta * this.velocityScale, this.seed[i] + delta * this.velocityScale, this.seed[i] + delta * this.velocityScale))
+    this.setPosition()
 
   }
 
