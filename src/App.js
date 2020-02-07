@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from 'react-three-fiber'
 import * as d3 from 'd3'
 
 import Sphere from './shapes/Sphere'
+import RotatingSphere from './shapes/RotatingSphere'
 
 import { noise } from './lib/noise'
 
@@ -10,11 +11,11 @@ import { noise } from './lib/noise'
 noise.seed(Math.random())
 const noiseFunction = noise.perlin3
 
-const spheres = d3.range(0,100).map((d,i) => {
-  const r = 3,
+const spheres = d3.range(0,1000).map((d,i) => {
+  const r = 2,
     radialPos = 2 * Math.PI * Math.random()
 
-  return new Sphere({
+  return new RotatingSphere({
       noiseFunction,
       position: [
         (r + Math.random()) * Math.cos(radialPos),
@@ -22,8 +23,9 @@ const spheres = d3.range(0,100).map((d,i) => {
         -10 + noiseFunction(Math.random(), Math.random(), Math.random())
       ],
       id: i,
-      r,
-      velocityScale: 0.000001
+      r: r - 0.25 + Math.random() * 0.5,
+      startRadians: radialPos,
+      velocityScale: 0.003 + Math.random() * 0.004
     })
 
 })
@@ -31,11 +33,14 @@ const spheres = d3.range(0,100).map((d,i) => {
 function Ring() {
 
   useFrame((state,delta) => spheres.forEach(sphere => {
-    sphere.setVelocity(delta)
+    // sphere.setVelocity(delta)
+    sphere.setPosition(delta)
+
     const { ref, position } = sphere
-    ref.current.position.x = position.x
-    ref.current.position.y = position.y
-    ref.current.position.z = position.z
+
+    ref.current.position.x = position[0]
+    ref.current.position.y = position[1]
+    ref.current.position.z = position[2]
     // console.log(position)
   }))
 
@@ -69,7 +74,7 @@ function SphereMesh({ sphere }) {
       ref={mesh}
       >
       <sphereBufferGeometry attach="geometry" args={[0.05, 32, 32]} />
-      <meshStandardMaterial attach="material" color={'orange'} />
+      <meshStandardMaterial attach="material" color={0xFFFFFF} />
     </mesh>
   )
 }
