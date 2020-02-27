@@ -1,6 +1,7 @@
 import Sphere from './Sphere'
 
 export default class RotatingSphere extends Sphere {
+
   constructor(props) {
     super(props)
 
@@ -8,13 +9,14 @@ export default class RotatingSphere extends Sphere {
     this.radians = this.startRadians
   }
 
-  setPosition(delta) {
-    // super.setPosition()
-// return
+  setPosition(time) {
+
+    let delta = time - this.startTime
+
     let step = (this.velocityScale * 30/(2 * Math.PI))
     this.radians += step
-    this.cumDelta = (this.cumDelta || 0) + delta * this.velocityScale * 100
-    let radius = this.r + this.noiseFunction(this.seed[0] + this.cumDelta, this.seed[1] + this.cumDelta, this.seed[2] + this.cumDelta)
+    let cumDelta = time * this.velocityScale * 150
+    let radius = this.r + this.noiseFunction(this.seed[0] + cumDelta, this.seed[1] + cumDelta)
     // this.position = [
     //   this.position[0] + Math.cos(step),
     //   this.position[1] + Math.sin(step),
@@ -28,4 +30,5 @@ export default class RotatingSphere extends Sphere {
 
     // console.log(this.position)
   }
+
 }

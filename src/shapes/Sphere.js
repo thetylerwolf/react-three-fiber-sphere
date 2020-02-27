@@ -23,18 +23,17 @@ export default class Sphere {
 
     this.seed = [
       Math.random() * 100,
-      Math.random() * 100,
       Math.random() * 100
     ]
 
     this.velocity = [ 0, 0, 0 ]
   }
 
-  setVelocity(delta) {
+  setVelocity(time) {
 
-    // let delta = time - this.startTime
+    let delta = time - this.startTime
 
-    this.velocity = this.velocity.map((v,i) => this.noiseFunction(this.seed[i] + delta * this.velocityScale, this.seed[i] + delta * this.velocityScale, this.seed[i] + delta * this.velocityScale))
+    this.velocity = this.velocity.map((v,i) => this.noiseFunction(this.seed[i] + delta * this.velocityScale, this.seed[i] + delta * this.velocityScale))
     this.setPosition()
 
   }
