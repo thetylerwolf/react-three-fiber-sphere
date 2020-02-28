@@ -84,7 +84,7 @@ const spheres = d3.range(0,numSpheres).map((d,i) => {
 function ClearColor() {
   const { gl, camera } = useThree()
   // camera.position.z = 0.5
-  gl.setClearColor(0x333333)
+  gl.setClearColor(0xCCDDFF)
   return null
 }
 
@@ -96,8 +96,9 @@ function App() {
       style={{ width: window.innerWidth, height: window.innerHeight}}
     >
       <ClearColor />
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
+      {/* <ambientLight intensity={0.5}/> */}
+      <pointLight position={[0, 0, -2]} intensity={2} />
+      <pointLight position={[0, 0, 2]} intensity={1} />
       {/* { genSpheres() } */}
       {/* <Ring></Ring> */}
       <NewSpheres />
