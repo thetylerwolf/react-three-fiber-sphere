@@ -8,7 +8,7 @@ import RotatingSphere from './shapes/RotatingSphere'
 
 import { noise } from './lib/noise'
 
-const numSpheres = 2000
+const numSpheres = 3000
 
 // START NEW STUFF =========================
 
@@ -19,7 +19,7 @@ const _color = new THREE.Color()
 function NewSpheres() {
 
   // const { gl } = useThree()
-  const colors = useMemo(() => new Array(numSpheres).fill().map(() => niceColors[16][Math.floor(Math.random() * 5)]), [])
+  const colors = useMemo(() => new Array(numSpheres).fill().map(() => niceColors[15][Math.floor(Math.random() * 5)]), [])
 
   const colorArray = useMemo(() => {
     const color = new Float32Array(numSpheres * 3)
@@ -76,7 +76,7 @@ const spheres = d3.range(0,numSpheres).map((d,i) => {
       id: i,
       r: r - 0.25 + Math.random() * 0.5,
       startRadians: radialPos,
-      velocityScale: 0.001 + Math.random() * 0.0005
+      velocityScale: 0.001 + Math.random() * 0.001
     })
 
 })
