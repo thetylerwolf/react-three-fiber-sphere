@@ -16,10 +16,11 @@ const _object = new THREE.Object3D()
 const _color = new THREE.Color()
 
 // From: https://codesandbox.io/s/r3f-instanced-colors-8fo01
-function NewSpheres() {
+function Spheres() {
 
   // const { gl } = useThree()
-  const colors = useMemo(() => new Array(numSpheres).fill().map(() => niceColors[15][Math.floor(Math.random() * 5)]), [])
+  // const colors = useMemo(() => new Array(numSpheres).fill().map(() => niceColors[15][Math.floor(Math.random() * 5)]), [])
+  const colors = useMemo(() => new Array(numSpheres).fill().map(() => '#4e0909'), [])
 
   const colorArray = useMemo(() => {
     const color = new Float32Array(numSpheres * 3)
@@ -53,7 +54,7 @@ function NewSpheres() {
       <sphereBufferGeometry attach="geometry" args={[0.05, 32, 32]}>
         <instancedBufferAttribute ref={attrib} attachObject={['attributes', 'color']} args={[colorArray, 3]} />
       </sphereBufferGeometry>
-      <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors} />
+      <meshStandardMaterial attach="material" vertexColors={THREE.VertexColors} metalness={0.5} roughness={0.3} />
     </instancedMesh>
   )
 }
@@ -76,7 +77,7 @@ const spheres = d3.range(0,numSpheres).map((d,i) => {
       id: i,
       r: r - 0.25 + Math.random() * 0.5,
       startRadians: radialPos,
-      velocityScale: 0.001 + Math.random() * 0.001
+      velocityScale: 0.003 + Math.random() * 0.003
     })
 
 })
@@ -84,7 +85,8 @@ const spheres = d3.range(0,numSpheres).map((d,i) => {
 function ClearColor() {
   const { gl, camera } = useThree()
   // camera.position.z = 0.5
-  gl.setClearColor(0xCCDDFF)
+  // gl.setClearColor(0xCCDDFF)
+  gl.setClearColor(0x1A1A1A)
   return null
 }
 
@@ -96,12 +98,10 @@ function App() {
       style={{ width: window.innerWidth, height: window.innerHeight}}
     >
       <ClearColor />
-      {/* <ambientLight intensity={0.5}/> */}
-      <pointLight position={[0, 0, -2]} intensity={2} />
-      <pointLight position={[0, 0, 2]} intensity={1} />
-      {/* { genSpheres() } */}
-      {/* <Ring></Ring> */}
-      <NewSpheres />
+      <pointLight position={[0, 0, 2]} intensity={1.4} />
+      <pointLight position={[0, 0, -2]} intensity={1} />
+      {/* <spotLight color={0xffffff} intensity={1} lookAt={new THREE.Vector3(1,1,1)}/> */}
+      <Spheres />
     </Canvas>
 
   );
