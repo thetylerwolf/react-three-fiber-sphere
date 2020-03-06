@@ -20,6 +20,8 @@ function Spheres() {
 
   // const { gl } = useThree()
   // const colors = useMemo(() => new Array(numSpheres).fill().map(() => niceColors[15][Math.floor(Math.random() * 5)]), [])
+  // const colors = useMemo(() => new Array(numSpheres).fill().map(() => ['#4e0909','#fafafa', '#1578b2'][Math.floor(Math.random() * 3)]), [])
+  // const colors = useMemo(() => new Array(numSpheres).fill().map(() => ['#fafafa', '#D4AF37'][Math.floor(Math.random() * 2)]), [])
   const colors = useMemo(() => new Array(numSpheres).fill().map(() => '#4e0909'), [])
 
   const colorArray = useMemo(() => {
